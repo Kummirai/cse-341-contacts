@@ -1,5 +1,9 @@
 import { Contact } from "../models/index.js";
 
+const homeController = async (req, res) => {
+  res.send("<h1>CSE341 Contacts Project</h1>");
+};
+
 const getAllContactsController = async (req, res) => {
   try {
     const contacts = await Contact.find({});
@@ -34,4 +38,4 @@ const getContactById = async (req, res) => {
   }
 };
 
-export { getAllContactsController, getContactById };
+export { getAllContactsController, getContactById, homeController };
