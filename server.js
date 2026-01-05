@@ -10,12 +10,11 @@ const app = express();
 
 app.use("/", contactsRouter);
 
-connectToDB()
-  .then(
-    app.listen(port, () => {
-      console.log(`Server running on port ${port}`);
-    })
-  )
-  .catch((error) => {
-    console.log(`Error in connecgting to database ${error}`);
+try {
+  await connectToDB();
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
   });
+} catch (error) {
+  console.log(`Error: ${error}`);
+}
