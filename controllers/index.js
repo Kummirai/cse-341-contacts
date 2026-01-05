@@ -14,6 +14,7 @@ const getAllContactsController = async (req, res) => {
     }
   } catch (error) {
     console.log(`Error in getAllContactsController ${error}`);
+    res.status(500).json("Internal server error");
   }
 };
 

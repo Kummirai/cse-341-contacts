@@ -4,28 +4,28 @@ const contactSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
-      require: true,
+      required: true,
     },
     lastName: {
       type: String,
-      require: true,
+      required: true,
     },
     email: {
       type: String,
-      require: true,
+      required: true,
     },
     favoriteColor: {
       type: String,
-      require: true,
+      required: true,
     },
     birthday: {
       type: Date,
-      require: true,
+      required: true,
     },
   },
   { timestamps: true }
 );
 
-const Contact = mongoose.model("Contacts", contactSchema);
+const Contact = mongoose.model("Contact", contactSchema);
 
 export { Contact };
