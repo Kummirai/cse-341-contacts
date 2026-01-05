@@ -3,7 +3,7 @@ import { getAllContactsController, getContactById } from "../controllers/index.j
 
 const contactsRouter = Router();
 
-contactsRouter.get("/", getAllContactsController);
-contactsRouter.get("/:id", getContactById);
+contactsRouter.get("/api/contacts", getAllContactsController);
+contactsRouter.get("/api/contacts/:id", getContactById);
 
 export { contactsRouter };
