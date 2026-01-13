@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Contact } from "../models/index.js";
 
 const homeController = async (req, res) => {
@@ -69,9 +70,54 @@ const createContactController = async (req, res) => {
   }
 };
 
+const updateContactController = async (req, res) => {
+  const { firstName, lastName, email, favoriteColor, birthday } = req.body;
+  const { id } = req.params;
+
+  const isIdValid = (id) => {
+    return mongoose.Types.ObjectId.isValid();
+  };
+
+  if (!isIdValid) {
+    res.status(400).json({ success: false, message: "Invalid ID" });
+  }
+
+  try {
+    const user = await Contact.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          favoriteColor: favoriteColor,
+          birthday: birthday,
+        },
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    if (!user) {
+      res.status(404).json({ success: false, message: "Contact not found!" });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Contact successfully updated!",
+      data: user,
+    });
+  } catch (error) {
+    console.log(`Error in updateContactController ${error}`);
+    res.status(500).json("Internal Server Error");
+  }
+};
+
 export {
   getAllContactsController,
   getContactById,
   homeController,
   createContactController,
+  updateContactController,
 };
