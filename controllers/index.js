@@ -38,4 +38,40 @@ const getContactById = async (req, res) => {
   }
 };
 
-export { getAllContactsController, getContactById, homeController };
+const createContactController = async (req, res) => {
+  const { firstName, lastName, email, favoriteColor, birthday } = req.body;
+
+  const user = Contact.find({ email });
+  if (user) {
+    res.status(400).json({ success: false, message: "Email already exists!" });
+  }
+
+  try {
+    const newContact = new Contact({
+      firstName,
+      lastName,
+      email,
+      favoriteColor,
+      birthday,
+    });
+
+    const contact = new Contact(newContact);
+    const savedContact = await contact.save();
+
+    res.status(201).json({
+      success: true,
+      message: "Successfully created!",
+      data: savedContact,
+    });
+  } catch (error) {
+    console.log(`Error in createContactController: ${error}`);
+    res.status(500).json("Internal server error!");
+  }
+};
+
+export {
+  getAllContactsController,
+  getContactById,
+  homeController,
+  createContactController,
+};
