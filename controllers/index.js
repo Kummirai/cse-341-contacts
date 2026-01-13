@@ -29,25 +29,29 @@ const getContactById = async (req, res) => {
   try {
     const contact = await Contact.findById(id);
     if (!contact) {
-      res.status(404).json({ success: false, message: "Contact not found!" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Contact not found!" });
     }
 
     res.status(200).json({ success: true, data: contact });
   } catch (error) {
     console.log(`Error in getContactByID ${error.message}`);
-    res.status(500).json("Internal Server Error");
+    return res.status(500).json("Internal Server Error");
   }
 };
 
 const createContactController = async (req, res) => {
   const { firstName, lastName, email, favoriteColor, birthday } = req.body;
 
-  const user = Contact.find({ email });
-  if (user) {
-    res.status(400).json({ success: false, message: "Email already exists!" });
-  }
-
   try {
+    const user = Contact.findOne({ email });
+    if (user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Email already exists!" });
+    }
+
     const newContact = new Contact({
       firstName,
       lastName,
@@ -59,7 +63,7 @@ const createContactController = async (req, res) => {
     const contact = new Contact(newContact);
     const savedContact = await contact.save();
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       message: "Successfully created!",
       data: savedContact,
@@ -75,10 +79,12 @@ const updateContactController = async (req, res) => {
   const { id } = req.params;
 
   const isIdValid = (id) => {
-    return mongoose.Types.ObjectId.isValid();
+    return mongoose.Types.ObjectId.isValid(id);
   };
 
-  if (!isIdValid) {
+  console.log(isIdValid);
+
+  if (!isIdValid(id)) {
     res.status(400).json({ success: false, message: "Invalid ID" });
   }
 
@@ -114,10 +120,41 @@ const updateContactController = async (req, res) => {
   }
 };
 
+const deleteContactController = async (req, res) => {
+  const { id } = req.params;
+
+  const isIdValid = (id) => {
+    return mongoose.Types.ObjectId.isValid(id);
+  };
+
+  if (!isIdValid(id)) {
+    res.status(404).json({ success: false, message: "Invalid ID" });
+  }
+
+  try {
+    const user = await Contact.findByIdAndDelete(id);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Contact not found!" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Contact successfully deleted!",
+      data: user,
+    });
+  } catch (error) {
+    console.log(`Error in deleteContactController ${error}`);
+    res.status(500).json("Internal Server Error");
+  }
+};
+
 export {
   getAllContactsController,
   getContactById,
   homeController,
   createContactController,
   updateContactController,
+  deleteContactController,
 };
