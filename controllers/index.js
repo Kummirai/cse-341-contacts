@@ -45,7 +45,8 @@ const createContactController = async (req, res) => {
   const { firstName, lastName, email, favoriteColor, birthday } = req.body;
 
   try {
-    const user = Contact.findOne({ email });
+    const user = await Contact.findOne({ email: email });
+    console.log(user);
     if (user) {
       return res
         .status(400)
@@ -128,7 +129,7 @@ const deleteContactController = async (req, res) => {
   };
 
   if (!isIdValid(id)) {
-    res.status(404).json({ success: false, message: "Invalid ID" });
+    return res.status(404).json({ success: false, message: "Invalid ID" });
   }
 
   try {
