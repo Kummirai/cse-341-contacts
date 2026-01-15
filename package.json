@@ -18,7 +18,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "build": "node swagger.js"
+    "swagger": "node ./swagger.js"
   },
   "dependencies": {
     "dotenv": "^17.2.3",

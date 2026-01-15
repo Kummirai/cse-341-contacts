@@ -5,7 +5,7 @@
     "description": "API for storing and retrieving information about contacts",
     "version": "1.0.0"
   },
-  "host": "https://cse-341-contacts-3hyw.onrender.com/",
+  "host": "cse-341-contacts-3hyw.onrender.com",
   "basePath": "/",
   "schemes": [
     "https"
