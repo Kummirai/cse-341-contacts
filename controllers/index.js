@@ -1,8 +1,11 @@
 import mongoose from "mongoose";
 import { Contact } from "../models/index.js";
 
-const homeController = async (req, res) => {
-  res.send("<h1>CSE341 API Contacts Project</h1>");
+const homeController = async (_req, res) => {
+  res.status(200).json({
+    project: "CSE341 API Contacts Project",
+    projectuRL: "https://github.com/Kummirai/cse-341-contacts",
+  });
 };
 
 const getAllContactsController = async (req, res) => {
