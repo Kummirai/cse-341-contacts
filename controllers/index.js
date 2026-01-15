@@ -109,7 +109,7 @@ const updateContactController = async (req, res) => {
     return date instanceof Date && !isNaN(date);
   };
 
-  if (!isValidDate(date)) {
+  if (!isValidDate(birthday)) {
     return res.status(400).json("Invalid date!");
   }
 
