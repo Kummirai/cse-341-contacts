@@ -83,11 +83,39 @@ const updateContactController = async (req, res) => {
   const { firstName, lastName, email, favoriteColor, birthday } = req.body;
   const { id } = req.params;
 
+  if (!firstName) {
+    return res.status(400).json("First name cannot be empty!");
+  }
+
+  if (!lastName) {
+    return res.status(400).json("Last name cannot be empty!");
+  }
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  if (!isValidEmail(email)) {
+    return res.status(400).json("Email not valid!");
+  }
+
+  if (!favoriteColor) {
+    return res.status(400).json("Favorite color cannot be empty!");
+  }
+
+  const isValidDate = (dateString) => {
+    const date = new Date(dateString);
+    return date instanceof Date && !isNaN(date);
+  };
+
+  if (!isValidDate(date)) {
+    return res.status(400).json("Invalid date!");
+  }
+
   const isIdValid = (id) => {
     return mongoose.Types.ObjectId.isValid(id);
   };
-
-  console.log(isIdValid);
 
   if (!isIdValid(id)) {
     res.status(400).json({ success: false, message: "Invalid ID" });
