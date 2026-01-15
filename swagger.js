@@ -2,10 +2,10 @@ import swaggerAutogen from "swagger-autogen";
 
 const doc = {
   info: {
-    title: "My API",
-    description: "Description",
+    title: "Contacts",
+    description: "API for storing and retrieving information about contacts",
   },
-  host: "localhost:3000",
+  host: "https://cse-341-contacts-3hyw.onrender.com/",
 };
 
 const outputFile = "./swagger-output.json";
