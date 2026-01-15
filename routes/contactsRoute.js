@@ -1,4 +1,6 @@
 import { Router } from "express";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from '../swagger-output.json' with { type: 'json' };
 import {
   getAllContactsController,
   getContactById,
@@ -8,6 +10,8 @@ import {
 } from "../controllers/index.js";
 
 const contactsRouter = Router();
+contactsRouter.use("/api-docs", swaggerUi.serve);
+contactsRouter.get("/api-docs", swaggerUi.setup(swaggerDocument));
 
 contactsRouter.get("/", getAllContactsController);
 contactsRouter.get("/:id", getContactById);

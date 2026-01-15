@@ -17,14 +17,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "swagger": "node ./swagger.js"
   },
   "dependencies": {
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
-    "mongoose": "^9.1.1"
+    "mongoose": "^9.1.1",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.11"
+    "nodemon": "^3.1.11",
+    "swagger-autogen": "^2.23.7"
   }
 }
