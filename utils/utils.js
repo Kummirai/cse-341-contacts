@@ -39,8 +39,5 @@ const checkContactDetails = (
   }
 };
 
-const isIdValid = (id) => {
-  return mongoose.Types.ObjectId.isValid(id);
-};
 
-export { checkContactDetails, isIdValid };
+export { checkContactDetails };

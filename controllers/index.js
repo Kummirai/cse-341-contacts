@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { Contact } from "../models/index.js";
-import { checkContactDetails, isIdValid } from "../utils/utils.js";
+import { checkContactDetails } from "../utils/utils.js";
 
 const homeController = async (_req, res) => {
   // #swagger.ignore = true
@@ -31,6 +31,10 @@ const getAllContactsController = async (req, res) => {
 
 const getContactById = async (req, res) => {
   const { id } = req.params;
+
+  const isIdValid = (id) => {
+    return mongoose.Types.ObjectId.isValid(id);
+  };
 
   if (!isIdValid(id)) {
     res.status(400).json({ success: false, message: "Invalid ID" });
@@ -106,6 +110,10 @@ const updateContactController = async (req, res) => {
     birthday,
     res
   );
+
+  const isIdValid = (id) => {
+    return mongoose.Types.ObjectId.isValid(id);
+  };
 
   if (!isIdValid(id)) {
     res.status(400).json({ success: false, message: "Invalid ID" });
