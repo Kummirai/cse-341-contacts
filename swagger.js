@@ -9,7 +9,7 @@ const doc = {
   schemes: ["https"],
 };
 
-const outputFile = "./swagger.json";
+const outputFile = "./swagger-output.json";
 const routes = ["./server.js"];
 
 /* NOTE: If you are using the express Router, you must pass in the 'routes' only the 
