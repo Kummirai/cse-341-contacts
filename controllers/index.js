@@ -7,6 +7,7 @@ const homeController = async (_req, res) => {
   res.status(200).json({
     project: "CSE341 API Contacts Project",
     projectuRL: "https://github.com/Kummirai/cse-341-contacts",
+    apiDocs: "https://cse-341-contacts-3hyw.onrender.com/api/contacts/api-docs",
   });
 };
 
@@ -55,7 +56,7 @@ const createContactController = async (req, res) => {
     email,
     favoriteColor,
     birthday,
-    res
+    res,
   );
 
   try {
@@ -99,7 +100,7 @@ const updateContactController = async (req, res) => {
     email,
     favoriteColor,
     birthday,
-    res
+    res,
   );
 
   const isIdValid = (id) => {
@@ -125,7 +126,7 @@ const updateContactController = async (req, res) => {
       {
         new: true,
         runValidators: true,
-      }
+      },
     );
 
     if (!user) {
