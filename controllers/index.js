@@ -147,7 +147,6 @@ const deleteContactController = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Contact successfully deleted!",
-      data: user,
     });
   } catch (error) {
     console.log(`Error in deleteContactController ${error}`);
