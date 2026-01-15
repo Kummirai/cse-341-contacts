@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { Contact } from "../models/index.js";
 
 const homeController = async (_req, res) => {
+  // #swagger.ignore = true
   res.status(200).json({
     project: "CSE341 API Contacts Project",
     projectuRL: "https://github.com/Kummirai/cse-341-contacts",
