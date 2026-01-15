@@ -54,7 +54,8 @@ const createContactController = async (req, res) => {
     lastName,
     email,
     favoriteColor,
-    birthday
+    birthday,
+    res
   );
 
   try {
@@ -97,7 +98,8 @@ const updateContactController = async (req, res) => {
     lastName,
     email,
     favoriteColor,
-    birthday
+    birthday,
+    res
   );
 
   const isIdValid = (id) => {

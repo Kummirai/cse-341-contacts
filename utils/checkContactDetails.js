@@ -3,7 +3,8 @@ const checkContactDetails = (
   lastName,
   email,
   favoriteColor,
-  birthday
+  birthday,
+  res
 ) => {
   if (!firstName) {
     return res.status(400).json("First name cannot be empty!");
