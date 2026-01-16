@@ -9,6 +9,13 @@ import {
   deleteContactController,
 } from "../controllers/index.js";
 
+const filteredSwaggerDocument = JSON.parse(JSON.stringify(swaggerDocument));
+
+if (filteredSwaggerDocument.paths) {
+  delete filteredSwaggerDocument.paths['/contacts/api-docs'];
+  delete filteredSwaggerDocument.paths['/contacts/api-docs/'];
+}
+
 const contactsRouter = Router();
 contactsRouter.use("/api-docs", swaggerUi.serve);
 contactsRouter.get("/api-docs", swaggerUi.setup(swaggerDocument));
