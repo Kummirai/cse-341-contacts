@@ -12,8 +12,8 @@ import {
 const filteredSwaggerDocument = JSON.parse(JSON.stringify(swaggerDocument));
 
 if (filteredSwaggerDocument.paths) {
-  delete filteredSwaggerDocument.paths['/contacts/api-docs'];
-  delete filteredSwaggerDocument.paths['/contacts/api-docs/'];
+  delete filteredSwaggerDocument.paths['/api/contacts/api-docs'];
+  delete filteredSwaggerDocument.paths['/api/contacts/api-docs/'];
 }
 
 const contactsRouter = Router();
