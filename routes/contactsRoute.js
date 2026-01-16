@@ -18,7 +18,7 @@ if (filteredSwaggerDocument.paths) {
 
 const contactsRouter = Router();
 contactsRouter.use("/api-docs", swaggerUi.serve);
-contactsRouter.get("/api-docs", swaggerUi.setup(swaggerDocument));
+contactsRouter.get("/api-docs", swaggerUi.setup(filteredSwaggerDocument));
 
 contactsRouter.get("/", getAllContactsController);
 contactsRouter.get("/:id", getContactById);
