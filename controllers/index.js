@@ -122,6 +122,14 @@ const updateContactController = async (req, res) => {
   const { firstName, lastName, email, favoriteColor, birthday } = req.body;
   const { id } = req.params;
 
+  const isIdValid = (id) => {
+    return mongoose.Types.ObjectId.isValid(id);
+  };
+
+  if (!isIdValid(id)) {
+    return res.status(400).json({ success: false, message: "Invalid ID" });
+  }
+
   if (!firstName) {
     return res.status(400).json("First name cannot be empty!");
   }
@@ -150,14 +158,6 @@ const updateContactController = async (req, res) => {
 
   if (!isValidDate(birthday)) {
     return res.status(400).json("Invalid date!");
-  }
-
-  const isIdValid = (id) => {
-    return mongoose.Types.ObjectId.isValid(id);
-  };
-
-  if (!isIdValid(id)) {
-    return res.status(400).json({ success: false, message: "Invalid ID" });
   }
 
   try {
