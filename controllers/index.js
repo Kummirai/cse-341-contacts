@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import { Contact } from "../models/index.js";
-import { checkContactDetails } from "../utils/utils.js";
 
 const homeController = async (_req, res) => {
   // #swagger.ignore = true
@@ -37,7 +36,7 @@ const getContactById = async (req, res) => {
   };
 
   if (!isIdValid(id)) {
-    res.status(400).json({ success: false, message: "Invalid ID" });
+    return res.status(400).json({ success: false, message: "Invalid ID" });
   }
 
   try {
@@ -58,14 +57,35 @@ const getContactById = async (req, res) => {
 const createContactController = async (req, res) => {
   const { firstName, lastName, email, favoriteColor, birthday } = req.body;
 
-  await checkContactDetails(
-    firstName,
-    lastName,
-    email,
-    favoriteColor,
-    birthday,
-    res
-  );
+  if (!firstName) {
+    return res.status(400).json("First name cannot be empty!");
+  }
+
+  if (!lastName) {
+    return res.status(400).json("Last name cannot be empty!");
+  }
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  if (!isValidEmail(email)) {
+    return res.status(400).json("Email not valid!");
+  }
+
+  if (!favoriteColor) {
+    return res.status(400).json("Favorite color cannot be empty!");
+  }
+
+  const isValidDate = (dateString) => {
+    const date = new Date(dateString);
+    return date instanceof Date && !isNaN(date);
+  };
+
+  if (!isValidDate(birthday)) {
+    return res.status(400).json("Invalid date!");
+  }
 
   try {
     const user = await Contact.findOne({ email: email });
@@ -102,21 +122,42 @@ const updateContactController = async (req, res) => {
   const { firstName, lastName, email, favoriteColor, birthday } = req.body;
   const { id } = req.params;
 
-  await checkContactDetails(
-    firstName,
-    lastName,
-    email,
-    favoriteColor,
-    birthday,
-    res
-  );
+  if (!firstName) {
+    return res.status(400).json("First name cannot be empty!");
+  }
+
+  if (!lastName) {
+    return res.status(400).json("Last name cannot be empty!");
+  }
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  if (!isValidEmail(email)) {
+    return res.status(400).json("Email not valid!");
+  }
+
+  if (!favoriteColor) {
+    return res.status(400).json("Favorite color cannot be empty!");
+  }
+
+  const isValidDate = (dateString) => {
+    const date = new Date(dateString);
+    return date instanceof Date && !isNaN(date);
+  };
+
+  if (!isValidDate(birthday)) {
+    return res.status(400).json("Invalid date!");
+  }
 
   const isIdValid = (id) => {
     return mongoose.Types.ObjectId.isValid(id);
   };
 
   if (!isIdValid(id)) {
-    res.status(400).json({ success: false, message: "Invalid ID" });
+    return res.status(400).json({ success: false, message: "Invalid ID" });
   }
 
   try {
